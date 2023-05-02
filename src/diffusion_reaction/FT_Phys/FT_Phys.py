@@ -2,16 +2,15 @@ import os
 os.environ['DDE_BACKEND'] = 'tensorflow.compat.v1'
 import numpy as np
 from scipy.interpolate import griddata
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import tensorflow_probability as tfp
 from multiprocessing import Pool
 
 
 def apply(func, args=None, kwds=None):
-    """Launch a new process to call the function.
-
-    This can be used to clear Tensorflow GPU memory after model execution:
-    https://stackoverflow.com/questions/39758094/clearing-tensorflow-gpu-memory-after-model-execution
+    """
+    Launch a new process to call the function.
+    This can be used to clear Tensorflow GPU memory after model execution.
     """
     with Pool(1) as p:
         if args is None and kwds is None:
