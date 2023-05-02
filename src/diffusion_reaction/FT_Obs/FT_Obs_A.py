@@ -1,14 +1,14 @@
 import os
 os.environ['DDE_BACKEND'] = 'tensorflow.compat.v1'
 import numpy as np
+import tensorflow.compat.v1 as tf
 from multiprocessing import Pool
 
 
 def apply(func, args=None, kwds=None):
-    """Launch a new process to call the function.
-
-    This can be used to clear Tensorflow GPU memory after model execution:
-    https://stackoverflow.com/questions/39758094/clearing-tensorflow-gpu-memory-after-model-execution
+    """
+    Launch a new process to call the function.
+    This can be used to clear Tensorflow GPU memory after model execution.
     """
     with Pool(1) as p:
         if args is None and kwds is None:
@@ -22,18 +22,19 @@ def apply(func, args=None, kwds=None):
     return r
 
 
+def gelu(x):
+    return 0.5 * x * (1 + tf.math.tanh(tf.math.sqrt(2 / np.pi) * (x + 0.044715 * x ** 3)))
+
+
+def dirichlet(inputs, outputs):
+    x_trunk = inputs[1]
+    x, t = x_trunk[:, 0:1], x_trunk[:, 1:2]
+    return 10 * x * (1 - x) * t * (outputs + 1)
+
+
 def ft_obs_a(repeat, ls_test, num_train):
     import deepxde as dde
-    from deepxde.backend import tf
     dde.optimizers.config.set_LBFGS_options(maxiter=1000)
-
-    def gelu(x):
-        return 0.5 * x * (1 + tf.math.tanh(tf.math.sqrt(2 / np.pi) * (x + 0.044715 * x ** 3)))
-
-    def dirichlet(inputs, outputs):
-        x_trunk = inputs[1]
-        x, t = x_trunk[:, 0:1], x_trunk[:, 1:2]
-        return 10 * x * (1 - x) * t * (outputs + 1)
 
     data_test = np.load(f"../../../data/diffusion_reaction/dr_test_ls_{ls_test}_num_{num_train}.npz")
     sensor_value = data_test['x_branch_test'][repeat]

@@ -32,7 +32,7 @@ def dirichlet(inputs, outputs):
     return 10 * x * (1 - x) * t * (outputs + 1)
 
 
-def deeponet_together(repeat):
+def deeponet_together(repeat, ls_test, num_train):
     import deepxde as dde
 
     class Triple(dde.data.data.Data):
@@ -41,10 +41,10 @@ def deeponet_together(repeat):
             self.train_y = y_train
             self.test_x = X_test
             self.test_y = y_test
-            self.train_x_branch_obs = X_train[0][-100:]
-            self.train_x_trunk_obs = X_train[1][-100:]
-            self.train_y_obs = y_train[-100:]
-            self.train_sampler = dde.data.sampler.BatchSampler(len(self.train_y) - 100, shuffle=True)
+            self.train_x_branch_obs = X_train[0][-num_train:]
+            self.train_x_trunk_obs = X_train[1][-num_train:]
+            self.train_y_obs = y_train[-num_train:]
+            self.train_sampler = dde.data.sampler.BatchSampler(len(self.train_y) - num_train, shuffle=True)
 
         def losses(self, targets, outputs, loss_fn, inputs, model, aux=None):
             return loss_fn(targets, outputs)
@@ -63,12 +63,12 @@ def deeponet_together(repeat):
             return self.test_x, self.test_y
 
     def loss_func(y_true, y_pred):
-        return dde.losses.mean_squared_error(y_true[:-100], y_pred[:-100]) + \
-               0.3 * dde.losses.mean_squared_error(y_true[-100:], y_pred[-100:])
+        return dde.losses.mean_squared_error(y_true[:-num_train], y_pred[:-num_train]) + \
+               0.3 * dde.losses.mean_squared_error(y_true[-num_train:], y_pred[-num_train:])
 
-    data_test = np.load(f"../../../data/diffusion_reaction/dr_test_ls_0.2_num_100.npz")
+    data_test = np.load(f"../../../data/diffusion_reaction/dr_test_ls_{ls_test}_num_{num_train}.npz")
     sensor_value = data_test['x_branch_test'][repeat]
-    X_train_branch_addition = np.tile(sensor_value, [100, 1])
+    X_train_branch_addition = np.tile(sensor_value, [num_train, 1])
     X_train_trunk_addition = data_test['x_trunk_test_select'][repeat]
     y_train_addition = data_test['y_test_select'][repeat]
     X_train = (np.concatenate([X_train_branch_origin, X_train_branch_addition], axis=0),
@@ -101,13 +101,15 @@ def deeponet_together(repeat):
 
 
 if __name__ == "__main__":
+    ls_test = 0.2
+    num_train = 100
     data_train = np.load(f"../../../data/diffusion_reaction/dr_train_ls_0.5_101_101.npz")
     X_train_branch_origin = np.repeat(data_train["X_train0"], 101 * 101, axis=0)
     X_train_trunk_origin = np.tile(data_train["X_train1"], (1000, 1))
     y_train_origin = data_train["y_train"].reshape(-1, 1)
     output_list = []
     for repeat in range(100):
-        output = apply(deeponet_together, (repeat,))
+        output = apply(deeponet_together, (repeat, ls_test, num_train))
         output_list.append(output)
     output_list = np.concatenate(output_list, axis=0)
     np.save(f"predict_ft_obs_t.npy", output_list)
