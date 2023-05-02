@@ -13,7 +13,7 @@ def main():
     ls_train = 0.5
     ls_test = 0.5
     lr = 0.001
-    epochs = 500000
+    iterations = 500000
     m_train = 101
     m_test = 101
     train_data = np.load(f"../../../data/diffusion_reaction/dr_train_ls_{ls_train}_{m_train}_{m_train}.npz")
@@ -38,10 +38,10 @@ def main():
     net.apply_output_transform(dirichlet)
 
     model = dde.Model(data, net)
-    model.compile("adam", lr=lr, metrics=["l2 relative error"], decay=("inverse time", epochs // 5, 0.5))
+    model.compile("adam", lr=lr, metrics=["l2 relative error"], decay=("inverse time", iterations // 5, 0.5))
 
     checker = dde.callbacks.ModelCheckpoint("model/model.ckpt", save_better_only=False, period=1000)
-    losshistory, train_state = model.train(epochs=epochs, callbacks=[checker], batch_size=30000)
+    losshistory, train_state = model.train(iterations=iterations, callbacks=[checker], batch_size=30000)
     dde.saveplot(losshistory, train_state, issave=True, isplot=False)
 
 
