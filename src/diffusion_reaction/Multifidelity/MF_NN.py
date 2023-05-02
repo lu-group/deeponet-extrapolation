@@ -5,10 +5,9 @@ from multiprocessing import Pool
 
 
 def apply(func, args=None, kwds=None):
-    """Launch a new process to call the function.
-
+    """
+    Launch a new process to call the function.
     This can be used to clear Tensorflow GPU memory after model execution:
-    https://stackoverflow.com/questions/39758094/clearing-tensorflow-gpu-memory-after-model-execution
     """
     with Pool(1) as p:
         if args is None and kwds is None:
@@ -61,7 +60,6 @@ def mfnn(repeat, ls_test, num_train, weight_decay, X_lo_train, y_lo_train):
 
 
 def main():
-
     X_lo_train = np.array([[a, b] for a in np.linspace(0, 1, 101) for b in np.linspace(0, 1, 101)])
     ls_test = 0.2
     num_train = 100
