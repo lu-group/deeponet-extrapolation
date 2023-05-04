@@ -1,3 +1,5 @@
+import os
+os.environ['DDE_BACKEND'] = 'tensorflow.compat.v1'
 import numpy as np
 import deepxde as dde
 from deepxde.backend import tf
