@@ -129,8 +129,8 @@ def main():
     for i in range(len(sensor_values)):
         sensor_value = sensor_values[i]
         output_func = y_test[i]
-        for boolean_value in [[True, True, True, True], [False, True, True, True], [False, False, False, True],
-                              [True, False, False, False], [False, True, False, False]]:
+        for boolean_value in [[True, True, True, True], [True, False, False, False], [False, True, True, True],
+                              [False, False, False, True], [False, False, True, True]]:
             apply(ft_phys, (lr, boolean_value, sensor_value, xt, output_func))
         apply(pure_pinn, (lr, sensor_value, xt, output_func))
 
