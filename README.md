@@ -1,4 +1,4 @@
-# DeepONet-extrapolation: Reliable extrapolation of DeepONet
+# Reliable extrapolation of deep neural operators informed by physics or sparse observations
 
 The data and code for the paper [M. Zhu, H. Zhang, A. Jiao, G. E. Karniadakis, & L. Lu. Reliable extrapolation of deep neural operators informed by physics or sparse observations. Computer Methods in Applied Mechanics and Engineering, 412, 116064, 2023.](https://doi.org/10.1016/j.cma.2023.116064).
 
