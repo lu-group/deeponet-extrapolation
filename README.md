@@ -4,6 +4,7 @@ The data and code for the paper [M. Zhu, H. Zhang, A. Jiao, G. E. Karniadakis, &
 
 ## Code
 
+- [Diffusion-reaction equation](src/diffusion_reaction)
 
 ## Cite this work
 
