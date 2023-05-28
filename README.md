@@ -2,9 +2,18 @@
 
 The data and code for the paper [M. Zhu, H. Zhang, A. Jiao, G. E. Karniadakis, & L. Lu. Reliable extrapolation of deep neural operators informed by physics or sparse observations. Computer Methods in Applied Mechanics and Engineering, 412, 116064, 2023](https://doi.org/10.1016/j.cma.2023.116064).
 
+
+## Datasets
+
+- [Diffusion-reaction equation](data/diffusion_reaction)
+- [Burgers’ equation](data/burgers)
+- [Advection equation](data/advection)
+
 ## Code
 
 - [Diffusion-reaction equation](src/diffusion_reaction)
+- [Burgers’ equation](src/burgers)
+- [Advection equation](src/advection)
 
 ## Cite this work
 
