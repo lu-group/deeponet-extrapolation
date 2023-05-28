@@ -8,12 +8,16 @@ The data and code for the paper [M. Zhu, H. Zhang, A. Jiao, G. E. Karniadakis, &
 - [Diffusion-reaction equation](data/diffusion_reaction)
 - [Burgers’ equation](data/burgers)
 - [Advection equation](data/advection)
+- [Poisson equation]
+- [Cavity flow]
 
 ## Code
 
 - [Diffusion-reaction equation](src/diffusion_reaction)
 - [Burgers’ equation](src/burgers)
 - [Advection equation](src/advection)
+- [Poisson equation]
+- [Cavity flow]
 
 ## Cite this work
 
