@@ -43,7 +43,7 @@ def main():
     model = dde.Model(data, net)
     model.compile("adam", lr=lr, metrics=["l2 relative error"], decay=("inverse time", iterations // 5, 0.5))
 
-    checker = dde.callbacks.ModelCheckpoint("model/model.ckpt", save_better_only=False, period=1000)
+    checker = dde.callbacks.ModelCheckpoint("model/model.ckpt", save_better_only=False, period=10000)
     losshistory, train_state = model.train(iterations=iterations, callbacks=[checker], batch_size=30000)
     dde.saveplot(losshistory, train_state, issave=True, isplot=False)
 
