@@ -1,0 +1,6 @@
+deepxde
+emukit
+GPy
+numpy
+scipy
+tensorflow
