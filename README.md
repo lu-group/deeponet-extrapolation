@@ -9,7 +9,7 @@ The data and code for the paper [M. Zhu, H. Zhang, A. Jiao, G. E. Karniadakis, &
 - [Burgers’ equation](data/burgers)
 - [Advection equation](data/advection)
 - Poisson equation
-- Cavity flow
+- [Cavity flow](data/cavity_flow)
 
 ## Code
 
@@ -17,7 +17,7 @@ The data and code for the paper [M. Zhu, H. Zhang, A. Jiao, G. E. Karniadakis, &
 - [Burgers’ equation](src/burgers)
 - [Advection equation](src/advection)
 - Poisson equation
-- Cavity flow
+- [Cavity flow](data/cavity_flow)
 
 ## Cite this work
 
