@@ -11,6 +11,8 @@ The data and code for the paper [M. Zhu, H. Zhang, A. Jiao, G. E. Karniadakis, &
 - [Poisson equation](data/poisson)
 - [Cavity flow](data/cavity_flow)
 
+To get complete datasets, run data_gen.py and data_gen_low_fidelity.py in the [data](data) folder for each equation.
+
 ## Code
 
 - [Diffusion-reaction equation](src/diffusion_reaction)
